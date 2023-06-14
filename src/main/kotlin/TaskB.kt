@@ -38,38 +38,11 @@ import java.lang.StringBuilder
  * В третьем примере несколко подряд идущих "/" должны замениться на один, а также необходимо убрать "/"
  * в конце строки
  */
-class TaskBVer1 {
+class TaskB {
     private val scan = java.util.Scanner(System.`in`)
-    private var inputString = scan.next()
-
-    init {
-        getCanonicalPath()
-    }
-
-    private fun getCanonicalPath() {
-        val lexeme = '/'
-        if (inputString[0] != lexeme) {
-            inputString = "$lexeme$inputString"
-        }
-        inputString = inputString.replace("//", lexeme.toString())
-            .replace("/\\./", lexeme.toString())
-            .replace("/../", lexeme.toString())
-
-        if (inputString[inputString.length - 1] == lexeme &&
-            inputString != lexeme.toString()
-        ) {
-            inputString = inputString.dropLast(1)
-        }
-
-        println(inputString)
-    }
-}
-
-class TaskBVer2 {
-    val scan = java.util.Scanner(System.`in`)
-    val inputString = scan.next()
-    val canonPath: StringBuilder = java.lang.StringBuilder()
-    val lexeme = '/'
+    private val inputString = scan.next()
+    private val canonPath: StringBuilder = java.lang.StringBuilder()
+    private val lexeme = '/'
 
     init {
         getCanonicalPath()
