@@ -66,7 +66,7 @@ class TaskB {
                 lexemeSlash -> index++
                 else -> {
                     val item = StringBuilder()
-                    while (index <= arrayChar.lastIndex && arrayChar[index] != '/'){
+                    while (index <= arrayChar.lastIndex && arrayChar[index] != lexemeSlash){
                         item.append(arrayChar[index])
                         index++
                     }
@@ -96,7 +96,7 @@ class TaskB {
 
     private fun printAnswer(stack: ArrayDeque<String>) {
         if (stack.isEmpty()) {
-            println(lexemeSlash)
+            print(lexemeSlash)
         } else {
             stack.forEach { print(it) }
         }
