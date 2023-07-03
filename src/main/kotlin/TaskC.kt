@@ -31,18 +31,27 @@
  */
 class TaskC {
     private val scan = java.util.Scanner(System.`in`)
-    private val sizeArray = scan.nextLine().toInt()
-    private val arrayPriceString = scan.nextLine().split(" ")
-//    private val arrayPrice : Map<Int, Int> = arrayPriceString.associateWith {  }
+    private val countDay = scan.nextLine().toInt()
+    private val priceDays = scan.nextLine().split(" ")
 
     init {
-//        println(arrayPrice)
+        var bestBuyDay = 0
+        var bestSellDay = 0
+        var minCostDay = 0
+        val arrayPriceDay = priceDays.map { it.toInt() }
+        for (i in 0..arrayPriceDay.lastIndex) {
+            if (arrayPriceDay[bestSellDay] * arrayPriceDay[minCostDay] < arrayPriceDay[bestBuyDay] * arrayPriceDay[i]) {
+                bestBuyDay = minCostDay
+                bestSellDay = i
+            }
+            if (arrayPriceDay[i] < arrayPriceDay[minCostDay]) {
+                minCostDay = i
+            }
+        }
+        if (bestSellDay == bestBuyDay) {
+            print("0 0")
+        } else {
+            print("${bestBuyDay + 1} ${bestSellDay + 1}")
+        }
     }
-
-    private fun getDay(arrayProce: List<Int>): String {
-
-//        arrayProce.maxBy {  }
-    return ""
-    }
-
 }
