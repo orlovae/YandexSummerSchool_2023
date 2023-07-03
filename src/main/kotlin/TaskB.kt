@@ -41,30 +41,62 @@ import kotlin.text.StringBuilder
 class TaskB {
     private val scan = java.util.Scanner(System.`in`)
     private val inputString = scan.next()
-    private val lexeme = "/"
+    private val lexemeSlash = '/'
+    private val lexemeOnePointer = "."
+    private val lexemeTwoPointer = ".."
 
     init {
         getCanonicalPath()
     }
 
     private fun getCanonicalPath() {
-        val list = inputString.split(lexeme)
+        val list = getListStringSplitLexeme(inputString)
+        val stack = getStackAnswer(list)
+
+        printAnswer(stack)
+    }
+
+    private fun getListStringSplitLexeme(inputString: String): List<String> {
+        val list = mutableListOf<String>()
+        val arrayChar = inputString.toCharArray()
+        var index = 0
+
+        while (index <= arrayChar.lastIndex) {
+            when (arrayChar[index]) {
+                lexemeSlash -> index++
+                else -> {
+                    val item = StringBuilder()
+                    while (index <= arrayChar.lastIndex && arrayChar[index] != '/'){
+                        item.append(arrayChar[index])
+                        index++
+                    }
+                    list.add(item.toString())
+                }
+            }
+        }
+        return list
+    }
+
+    private fun getStackAnswer(list: List<String>): ArrayDeque<String> {
         val stack = ArrayDeque<String>()
         list.forEach {
-            if (it != "." && it.isNotEmpty()) {
-                stack.add(lexeme + it)
+            if (it != lexemeOnePointer && it.isNotEmpty()) {
+                stack.add(lexemeSlash + it)
             }
 
-            if (it == "..") {
+            if (it == lexemeTwoPointer) {
                 stack.removeLast()
                 if (stack.lastIndex > 0) {
                     stack.removeLast()
                 }
             }
         }
+        return stack
+    }
 
+    private fun printAnswer(stack: ArrayDeque<String>) {
         if (stack.isEmpty()) {
-            println(lexeme)
+            println(lexemeSlash)
         } else {
             stack.forEach { print(it) }
         }
