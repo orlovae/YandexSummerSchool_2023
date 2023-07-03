@@ -1,4 +1,4 @@
-import java.lang.StringBuilder
+import kotlin.text.StringBuilder
 
 /**
  * B. Канонический путь
@@ -41,25 +41,35 @@ import java.lang.StringBuilder
 class TaskB {
     private val scan = java.util.Scanner(System.`in`)
     private val inputString = scan.next()
-    private val canonPath: StringBuilder = java.lang.StringBuilder()
-    private val lexeme = '/'
+    private val lexeme = "/"
 
     init {
         getCanonicalPath()
     }
 
     private fun getCanonicalPath() {
-        inputString.split(lexeme).forEach {
-            if (it != "." && it != ".." && it.isNotEmpty()) {
-                canonPath
-                    .append(lexeme)
-                    .append(it)
+        val list = inputString.split(lexeme)
+        val stack = ArrayDeque<String>()
+        list.forEach {
+            if (it != "." && it.isNotEmpty()) {
+                stack.add(lexeme + it)
+            }
+
+            if (it == "..") {
+                stack.removeLast()
+                if (stack.lastIndex > 0) {
+                    stack.removeLast()
+                }
             }
         }
-        if (canonPath.isEmpty()) {
+
+        if (stack.isEmpty()) {
             println(lexeme)
         } else {
-            println(canonPath.toString())
+            stack.forEach { print(it) }
         }
     }
 }
+
+// /a/b/c/../d
+//  a b c .. d
