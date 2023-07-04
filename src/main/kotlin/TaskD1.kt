@@ -24,7 +24,7 @@ import kotlin.math.min
  * 0
  */
 
-class TaskD {
+class TaskD1 {
     private val scan = java.util.Scanner(System.`in`)
     private val countTrain = scan
         .nextLine()

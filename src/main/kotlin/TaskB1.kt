@@ -38,7 +38,7 @@ import kotlin.text.StringBuilder
  * В третьем примере несколко подряд идущих "/" должны замениться на один, а также необходимо убрать "/"
  * в конце строки
  */
-class TaskB {
+class TaskB1 {
     private val scan = java.util.Scanner(System.`in`)
     private val inputString = scan.next()
     private val lexemeSlash = '/'

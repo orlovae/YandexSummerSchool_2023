@@ -29,7 +29,7 @@
  * Вывод
  * 0 0
  */
-class TaskC {
+class TaskC1 {
     private val scan = java.util.Scanner(System.`in`)
     private val countDay = scan.nextLine().toInt()
     private val priceDays = scan.nextLine().split(" ")

@@ -25,7 +25,7 @@
  * Вывод
  *
  */
-class TaskE {
+class TaskE1 {
     private val scan = java.util.Scanner(System.`in`)
     private val palindrome = scan.nextLine()
 
