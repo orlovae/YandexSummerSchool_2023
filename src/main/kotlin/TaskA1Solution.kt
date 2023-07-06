@@ -30,7 +30,7 @@
  */
 
 
-class TaskA1 {
+class TaskA1Solution {
     private val scan = java.util.Scanner(System.`in`)
     private val countBlock = scan.nextLong()
 

@@ -30,7 +30,7 @@ R9G1B0
 Вывод
 0
  */
-class TaskB2 {
+class TaskB2Solution {
     private val scan = java.util.Scanner(System.`in`)
     private val inputString = scan.nextLine()
 
