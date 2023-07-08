@@ -22,18 +22,11 @@
 4
  */
 class TaskE2Solution {
-    private val scan = java.util.Scanner(System.`in`)
-    private val sizeArray = scan.nextLine().toInt()
-    private val array = scan.nextLine().split(" ")
+    private val sizeArray = readln().toInt()
+    private val array = readln().split(" ")
     private val map: HashMap<Int, Int> = hashMapOf()
 
     init {
-        print(
-            getAnswer(array)
-        )
-    }
-
-    private fun getAnswer(array: List<String>): Int {
         var count = 0
 
         array.forEach {
@@ -46,22 +39,25 @@ class TaskE2Solution {
         }
 
         map.keys.forEach { key ->
-            val value = getValueOrZero(key)
+            val value = if (map[key] != null) {
+                map[key]!!
+            } else {
+                0
+            }
             count = maxOf(
                 a = count,
-                b = value + getValueOrZero(key + 1),
-                c = value + getValueOrZero(key - 1),
+                b = value + if (map[key + 1] != null) {
+                    map[key + 1]!!
+                } else {
+                    0
+                },
+                c = value + if (map[key - 1] != null) {
+                    map[key - 1]!!
+                } else {
+                    0
+                },
             )
         }
-
-        return sizeArray - count
-    }
-
-    private fun getValueOrZero(key: Int): Int {
-        return if (map[key] != null) {
-            map[key]!!
-        } else {
-            0
-        }
+        print(sizeArray - count)
     }
 }
