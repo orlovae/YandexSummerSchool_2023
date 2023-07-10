@@ -44,18 +44,20 @@ class TaskB3 {
 
 
     init {
-        var count = 0
-        list.forEach { item ->
-            val start = list.indexOfFirst { it > (item * 0.5 + 7).toInt()}
-            val end = list.indexOfLast { it == item }
-
-            if (start != -1 || end != -1 ) {
-                val subList = list.subList(start, end)
-                if (subList.isNotEmpty()) {
-                    count += subList.size
-                }
+        var answer = 0
+        var start = 0
+        var end = 0
+        for (i in 0..list.lastIndex) {
+            while (start <= list.lastIndex && list[start] <= (0.5 * list[i]) + 7){
+                start += 1
+            }
+            while (end <= list.lastIndex && list[end] <= list[i]) {
+                end += 1
+            }
+            if (end > start + 1) {
+                answer += end - start - 1
             }
         }
-        print(count)
+        print(answer)
     }
 }
