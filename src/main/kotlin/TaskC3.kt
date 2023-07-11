@@ -29,22 +29,49 @@
  */
 class TaskC3 {
     private val lineFirst = readln().split(" ").map { it.toInt() }
-    private val lengthLights = lineFirst[0]
-    private val countColorLight = lineFirst[1]
-    private val colorLightList = readList(countColorLight)
+    private val lengthLamps = lineFirst[0]
+    private val countColorLamps = lineFirst[1]
+    private val colorLampsList = readList(countColorLamps)
 
     init {
-        var answer = 0
-        colorLightList.forEach {
-            answer += it / lengthLights
-        }
-        println(answer)
-        colorLightList.forEachIndexed { index, it ->
-            if (it / answer >= 1) {
-                println(index + 1)
+        var left = 0
+        var right = colorLampsList.sum()
+        while (left < right) {
+            val median = (left + right + 1) / 2
+            if (check(median, lengthLamps, colorLampsList)) {
+                left = median
+            } else {
+                right = median - 1
             }
         }
+        println(left)
+        printGarland(left, colorLampsList)
     }
+}
+
+private fun printGarland(answer: Int, colorLampsList: List<Int>) {
+    val garland = mutableListOf<Int>()
+    colorLampsList.forEachIndexed { index, colorLamp ->
+        if (colorLamp / answer >= 1) {
+            garland.add(index + 1)
+        }
+    }
+    val garlandLast = garland.last()
+    garland.forEach {
+        if (it != garlandLast){
+            println(it)
+        } else {
+            print(it)
+        }
+    }
+}
+
+private fun check(median: Int, lengthLights: Int, colorLightLis: List<Int>): Boolean {
+    var inGarland = 0
+    colorLightLis.forEach {
+        inGarland += it / median
+    }
+    return inGarland >= lengthLights
 }
 
 private fun readList(countColorLight: Int): MutableList<Int> {
