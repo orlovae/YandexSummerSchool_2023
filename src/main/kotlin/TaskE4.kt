@@ -51,61 +51,66 @@ bil
 class TaskE4 {
     private val fileName = readln()
     private val sizePath = readln().toInt()
-    private val path = readPath(sizePath)
+    private val stack = getStack(sizePath, fileName)
 
     init {
-        val tree = createTree(path)
-        val count = 2
-    }
-}
-
-private fun readPath(sizeList: Int): List<String> {
-    val list = mutableListOf<String>()
-    for (i in 0 until sizeList) {
-        list.add(
-            readln()
-        )
-    }
-    return list
-}
-
-private class Node(
-    var name: String,
-    var level: Int,
-    val list: MutableList<Node>? = null
-) {
-    fun insert(nodeString: String) {
-        val tmp = nodeString.split(" ")
-        val level = tmp.size - 1
-        val name = tmp.last()
-        val parentNode = getParentNode(this, level)
-        parentNode?.list?.add(
-            Node(
-                name = name,
-                level = level
-            )
-        )
-    }
-
-    private fun getParentNode(node: Node, level: Int): Node? {
-        node.list?.forEach {
-            if (it.level == level) {
-                return it
+        val answer = if (stack.toString().contains('/')) {
+            stack.joinToString("/")
+        } else {
+            if (stack.size != 1) {
+                "/${stack.toString()}"
             } else {
-                getParentNode(it, level)
+                "/${stack.last()}"
             }
         }
-        return null
+        println(answer)
     }
 }
 
-private fun createTree(path: List<String>): Node {
-    val node = Node(
-        name = path.first(),
-        level = 0
-    )
-    for (i in 1..path.lastIndex) {
-        node.insert(path[i])
+private fun getStack(sizeList: Int, fileName: String): ArrayDeque<String> {
+    val stack = ArrayDeque<String>()
+    val readLineRoot = readln().split(" ")
+    var position = readLineRoot.lastIndex
+    val root = deleteEmptyItemRight(readLineRoot).last()
+    if (!root.contains('.')) {
+        stack.add("/$root")
     }
-    return node
+
+    for (i in 1 until sizeList) {
+        val readLine = readln().split(" ")
+        val currentPosition = readLine.lastIndex
+        val path = deleteEmptyItemRight(readLine).last()
+
+        if (!path.contains('.')) {
+            if (currentPosition < position) {
+                stack.removeLast()
+            }
+            stack.add(path)
+        } else {
+            if (path == fileName) {
+                stack.add(path)
+                break
+            }
+        }
+
+        position = currentPosition
+
+    }
+    return stack
+}
+
+private fun deleteEmptyItemRight(list: List<String>): List<String> {
+    return if (list.size <= 1) {
+        list
+    } else {
+        val mutableList = list.toMutableList()
+        for (i in list.lastIndex downTo 0) {
+            if (list[i].isEmpty()) {
+                mutableList.removeAt(i)
+            } else {
+                break
+            }
+        }
+        mutableList.toList()
+    }
 }
