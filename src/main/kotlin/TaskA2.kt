@@ -23,13 +23,16 @@
  * 1 2 3 1 2 3
  * Вывод
  * NO
+https://contest.yandex.ru/contest/50242/problems/
+https://contest.yandex.ru/contest/28415/problems/
  */
 class TaskA2 {
-    private val scan = java.util.Scanner(System.`in`)
-    private val inputFirst = scan.nextLine()
+    private val inputFirst = readln()
+        .trim()
         .split(" ")
         .map { it.toInt() }
-    private val inputSecond = scan.nextLine()
+    private val inputSecond = readln()
+        .trim()
         .split(" ")
         .map { it.toInt() }
     private val requirement = inputFirst[1]

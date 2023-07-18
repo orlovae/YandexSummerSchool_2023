@@ -30,10 +30,10 @@
 2
  */
 class TaskA4 {
-    private val sizeGroupList = readln().toInt()
-    private val groupList = readln().split(" ").map { it.toInt() }.sorted()
-    private val sizeAuditoriumList = readln().toInt()
-    private val capacityAuditoriumList = readln().split(" ").map { it.toInt() }
+    private val sizeGroupList = readln().trim().toInt()
+    private val groupList = readln().trim().split(" ").map { it.toInt() }.sorted()
+    private val sizeAuditoriumList = readln().trim().toInt()
+    private val capacityAuditoriumList = readln().trim().split(" ").map { it.toInt() }
 
     init {
         var answer = 0
