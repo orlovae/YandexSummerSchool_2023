@@ -2,5 +2,5 @@
  * Для компилятора яндекса надо копировать main и нужный class
  */
 fun main(args: Array<String>) {
-    val task = TaskB5()
+    val task = TaskC5()
 }
