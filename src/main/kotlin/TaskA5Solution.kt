@@ -20,6 +20,7 @@
 2
 Примечания
 В числах 1370 и 7311 есть один «бык» (цифра 3), а также две «коровы» — одна из цифр 1 и цифра 7.
+https://contest.yandex.ru/contest/50597
  */
 class TaskA5Solution {
     private val numbersVasya = readln().trim()

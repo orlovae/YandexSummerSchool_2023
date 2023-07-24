@@ -28,7 +28,7 @@
 3 2 1
 Вывод
 2
-https://contest.yandex.ru/contest/50523/problems/
+https://contest.yandex.ru/contest/50523
  */
 class TaskA4 {
     private val sizeGroupList = readln().trim().toInt()

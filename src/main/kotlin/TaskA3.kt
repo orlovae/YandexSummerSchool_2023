@@ -26,11 +26,12 @@
 2
 1
 3
+https://contest.yandex.ru/contest/50340
  */
 class TaskA3 {
-    private val sizeList = readln().toInt()
-    private val list = readln().split(" ").map { it.toInt() }
-    private val countRequest = readln().toInt()
+    private val sizeList = readln().trim().toInt()
+    private val list = readln().trim().split(" ").map { it.toInt() }
+    private val countRequest = readln().trim().toInt()
     private val listRequest = readList(countRequest)
 
     init {
@@ -70,7 +71,7 @@ private fun getListPrefixPositive(list: List<Int>): List<Int> {
 private fun readList(countRequest: Int): MutableList<Request> {
     val arrayRequest = mutableListOf<Request>()
     for (i in 0 until countRequest) {
-        val inputRequest = readln().split(" ").map { it.toInt() }
+        val inputRequest = readln().trim().split(" ").map { it.toInt() }
         arrayRequest.add(
             Request(
                 start = inputRequest[0] - 1,

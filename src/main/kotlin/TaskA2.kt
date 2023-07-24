@@ -23,7 +23,7 @@
  * 1 2 3 1 2 3
  * Вывод
  * NO
-https://contest.yandex.ru/contest/50242/problems/
+https://contest.yandex.ru/contest/50242
 https://contest.yandex.ru/contest/28415/problems/
  */
 class TaskA2 {
