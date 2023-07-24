@@ -28,24 +28,37 @@
 3 2 1
 Вывод
 2
+https://contest.yandex.ru/contest/50523/problems/
  */
 class TaskA4 {
     private val sizeGroupList = readln().trim().toInt()
-    private val groupList = readln().trim().split(" ").map { it.toInt() }.sorted()
+    private val groupList = readln()
+        .trim()
+        .split(" ")
+        .map { it.toInt() }
+        .sortedDescending()
     private val sizeAuditoriumList = readln().trim().toInt()
-    private val capacityAuditoriumList = readln().trim().split(" ").map { it.toInt() }
+    private val capacityAuditoriumList = readln()
+        .trim()
+        .split(" ")
+        .map { it.toInt() }
+        .sortedDescending()
 
     init {
         var answer = 0
-        run loop@{
-            groupList.forEach { group ->
-                if (capacityAuditoriumList.contains(group)) {
-                    answer++
-                } else {
-                    return@loop
-                }
+
+        var startGroup = 0
+        var startAuditorium = 0
+        while (startAuditorium <= sizeAuditoriumList - 1 && startGroup <= sizeGroupList - 1) {
+            if (capacityAuditoriumList[startAuditorium] >= groupList[startGroup]) {
+                answer += 1
+                startAuditorium++
+                startGroup++
+            } else {
+                startGroup++
             }
         }
+
         print(answer)
     }
 }
