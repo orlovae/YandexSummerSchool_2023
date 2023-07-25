@@ -1,3 +1,5 @@
+import kotlin.math.min
+
 /**
 Вася переехал из своего родного города и очень скучает по старым друзьям. К сожалению, Вася снимает маленькую
 квартиру и одновременно в гости к нему может приехать только один друг.
@@ -39,59 +41,64 @@
 1 4
 5 5
  */
-class TaskB4 {
-    private val countFriends = readln().toInt()
-    private val dayList = readList(countFriends)
+class TaskB4Solution {
+    private val countFriends = readln().trim().toInt()
+    private val friendList = readList(countFriends)
 
     init {
-        var arrival = 0
+        val answer = MutableList(countFriends) { Friend(index = it) }
+        var currentArrival = 0
+        var currentDeparture = 0
+        var currentIndex = -1
 
-        for (i in 0..dayList.lastIndex) {
-            var departure = dayList[i].departure
-            if (departure == 1) {
-                arrival = -1
-                departure = -1
-                println("$arrival $departure")
-            } else {
-                arrival = when (arrival) {
-                    -1 -> {
-                        1
-                    }
-
-                    0 -> {
-                        1
-                    }
-
-                    else -> {
-                        if (i != 0) {
-                            dayList[i - 1].departure
-                        } else {
-                            departure
-                        }
-                    }
+        friendList.forEach {
+            if (it.departureDay > currentDeparture) {
+                if (currentIndex != -1) {
+                    answer[currentIndex] = Friend(
+                        arrivalDay = currentArrival,
+                        departureDay = min(it.arrivalDay, currentDeparture),
+                        index = currentIndex
+                    )
                 }
+                currentArrival = it.arrivalDay
+                currentDeparture = it.departureDay
+                currentIndex = it.index
             }
-            println("$arrival $departure")
+            if (currentIndex != -1) {
+                answer[currentIndex] = Friend(
+                    arrivalDay = currentArrival,
+                    departureDay = currentDeparture,
+                    index = currentIndex
+                )
+            }
+
         }
 
+        answer.forEach {
+            println("${it.arrivalDay} ${it.departureDay}")
+        }
     }
+
 }
 
-private fun readList(countFriends: Int): MutableList<Days> {
-    val daysList = mutableListOf<Days>()
+private fun readList(countFriends: Int): MutableList<Friend> {
+    val friendList = mutableListOf<Friend>()
     for (i in 0 until countFriends) {
-        val inputLine = readln().split(" ").map { it.toInt() }
-        daysList.add(
-            Days(
-                arrival = inputLine[0],
-                departure = inputLine[1]
+        val inputLine = readln().trim().split(" ").map { it.toInt() }
+        friendList.add(
+            Friend(
+                arrivalDay = inputLine[0],
+                departureDay = inputLine[1],
+                index = i
             )
         )
     }
-    return daysList
+    friendList.sortBy { it.arrivalDay }
+    return friendList
 }
 
-private data class Days(
-    val arrival: Int,
-    val departure: Int
+private data class Friend(
+    val arrivalDay: Int = -1,
+    val departureDay: Int = -1,
+    val index: Int,
 )
