@@ -30,7 +30,7 @@
 2
 https://contest.yandex.ru/contest/50523
  */
-class TaskA4 {
+class TaskA4Solution {
     private val sizeGroupList = readln().trim().toInt()
     private val groupList = readln()
         .trim()
