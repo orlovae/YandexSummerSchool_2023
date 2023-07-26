@@ -30,7 +30,7 @@ class TaskC5 {
         var firstIndex = 0
         var lastIndex = mountainList.lastIndex
 
-        while (lastIndex > firstIndex) {
+        while (lastIndex >= firstIndex) {
             val middleIndex = when {
                 (firstIndex + lastIndex) / 2 == 0 -> {
                     1
