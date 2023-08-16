@@ -1,3 +1,6 @@
+import java.io.BufferedReader
+import java.io.File
+
 /**
 Недавно Глеб катался в горах. Как известно, горный хребет - такой набор гор с высотами h1…hn, что в нем больше 3
 гор и существует такая основная гора с индексом i, что 1<i<n и h1<h2<⋯<hi>hi+1>⋯>hn. Глеб помнит высоты всех гор,
@@ -23,43 +26,23 @@
 3
  */
 class TaskC5 {
-    private val sizeMountainList = readln()
-    private val mountainList = readln().trim().split(" ").map { it.toInt() }
+    private val bufferedReader: BufferedReader = File("input.txt").bufferedReader()
+    private val inputData = bufferedReader
+        .use {
+            it.readText()
+        }
+        .run {
+            split("\n").filter { it.isNotEmpty() }
+        }
+    private val sizeMountainList = inputData[0].toInt()
+    private val mountainList = inputData[1].trim().split(" ").map { it.toLong() }
+    private val file = File("output.txt")
 
     init {
-        var firstIndex = 0
-        var lastIndex = mountainList.lastIndex
-
-        while (lastIndex >= firstIndex) {
-            val middleIndex = when {
-                (firstIndex + lastIndex) / 2 == 0 -> {
-                    1
-                }
-                (firstIndex + lastIndex) / 2 == lastIndex -> {
-                    lastIndex - 1
-                }
-                else -> {
-                    (firstIndex + lastIndex) / 2
-                }
-            }
-
-            val previous = mountainList[middleIndex - 1]
-            val current = mountainList[middleIndex]
-            val next = mountainList[middleIndex + 1]
-            when {
-                previous < current && current > next -> {
-                    println(middleIndex + 1)
-                    println("value ${mountainList[middleIndex]}")
-                    break
-                }
-
-                previous < current && current < next -> {
-                    firstIndex = middleIndex + 1
-                }
-
-                previous > current && current > next -> {
-                    lastIndex = middleIndex - 1
-                }
+        for (i in 1 until sizeMountainList) {
+            if (mountainList[i - 1] < mountainList[i] && mountainList[i] > mountainList[i + 1]) {
+                file.bufferedWriter().use { bw -> bw.write((i + 1).toString()) }
+                break
             }
         }
     }
