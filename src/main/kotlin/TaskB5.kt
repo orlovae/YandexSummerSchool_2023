@@ -1,3 +1,6 @@
+import java.io.BufferedReader
+import java.io.File
+
 /**
 Дана строка s и число k. В строке s требуется найти подстроку максимальной длины, в которой все различные символы
 встречаются не менее k раз.
@@ -23,10 +26,18 @@ ababbc
 5
  */
 class TaskB5 {
-    private val firstString = readln().trim().split(" ").map { it.toInt() }
+    private val bufferedReader: BufferedReader = File("input.txt").bufferedReader()
+    private val inputData = bufferedReader
+        .use {
+            it.readText()
+        }
+        .run {
+            split("\n").filter { it.isNotEmpty() }
+        }
+    private val firstString = inputData[0].trim().split(" ").map { it.toInt() }
     private val length = firstString[0]
     private val k = firstString[1]
-    private val string = readln().trim()
+    private val string = inputData[1].trim()
     private val map = mutableMapOf<Char, Int>()
 
     init {
