@@ -1,3 +1,6 @@
+import java.io.BufferedReader
+import java.io.File
+
 /**
 Дана изначальная строка s. За одну операцию можно: Взять непустой префикс строки состоящий из одинаковых букв.
 Взять непустой суффикс строки состоящий из одинаковых букв. И префикс, и суффикс должны состоять из одних и тех же
@@ -37,55 +40,27 @@ aabxxxca
 bxxxc
  */
 class TaskD5 {
-    private val string = readln().trim()
+    private val bufferedReader: BufferedReader = File("input.txt").bufferedReader()
+    private val string = bufferedReader
+        .use {
+            it.readText().trim()
+        }
 
     init {
-        val mutableString = StringBuilder(string)
 
-        while (mutableString.first() == mutableString.last()) {
-            if (mutableString.length == 1) {
-                break
-            }
-            if (mutableString.length == 2 && mutableString.first() == mutableString.last()) {
-                mutableString.clear()
-                break
-            }
-            if (mutableString.length == 3 && mutableString.first() == mutableString.last()) {
-                mutableString.deleteCharAt(0)
-                mutableString.deleteCharAt(1)
-                break
+        var start = 0
+        var end = string.lastIndex
+
+        while (start < end && string[start] == string[end]) {
+            val tmp = string[start]
+            while (start < end && string[start] == string[end]) {
+                start += 1
             }
 
-            var startStart = 0
-            var startEnd = mutableString.length
-            while (startStart < startEnd) {
-                val medium = (startStart + startEnd + 1) / 2
-                if (mutableString[startStart] == mutableString[medium]) {
-                    startStart = medium
-                } else {
-                    startEnd = medium - 1
-                }
-
+            while (end >= start && tmp == string[end]) {
+                end -= 1
             }
-            mutableString.delete(0, startStart + 1)
-
-            if (mutableString.isEmpty()) {
-                break
-            }
-
-            var endEnd = mutableString.lastIndex
-            var endStart = endEnd / 2
-            while (endStart < endEnd) {
-                val medium = (endStart + endEnd) / 2
-                if (mutableString[medium] == mutableString[endEnd]) {
-                    endEnd = medium
-                } else {
-                    endStart = medium + 1
-                }
-            }
-            mutableString.delete(endStart, mutableString.length)
-
         }
-        println(mutableString.length)
+        println(end - start + 1)
     }
 }
